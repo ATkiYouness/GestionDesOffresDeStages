@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -16,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -44,6 +47,11 @@ public class Utilisateur implements Serializable {
     private String etat_Civil;
     @Column(name="tel")
     private String tel;
+
+
+     @OneToOne(cascade=CascadeType.ALL)
+     @JoinColumn(name="adress_Fk", nullable=true)
+     Adresse  adress;
 
 
     public Long getId() {

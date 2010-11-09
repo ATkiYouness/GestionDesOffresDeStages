@@ -45,7 +45,9 @@ public class Etudiant extends Utilisateur {
 
 
 
-
+    @ManyToOne()
+    @JoinColumn(name="commune_Fk",nullable=false)
+    private    Commune commune_Fk;
 
 
    
@@ -90,6 +92,14 @@ public class Etudiant extends Utilisateur {
 
     public void setSituiationEtu(String situiationEtu) {
         this.situiationEtu = situiationEtu;
+    }
+
+    public Commune getCommune_Fk() {
+        return commune_Fk;
+    }
+
+    public void setCommune_Fk(Commune commune_Fk) {
+        this.commune_Fk = commune_Fk;
     }
 
     

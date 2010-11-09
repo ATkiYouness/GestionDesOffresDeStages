@@ -24,7 +24,30 @@ public class ResCom extends Utilisateur {
 
  
 
+  @OneToMany(mappedBy="respoCom_Fk")
+   List<Commune> communes;
 
+    @OneToMany(mappedBy="respoCom_Fk")
+    private List<Offre> offres;
+
+    public List<Commune> getCommunes() {
+        return communes;
+    }
+
+    public void setCommunes(List<Commune> communes) {
+        this.communes = communes;
+    }
+
+    public List<Offre> getOffres() {
+        return offres;
+    }
+
+    public void setOffres(List<Offre> offres) {
+        this.offres = offres;
+    }
+
+
+    
     
     
 
