@@ -1,15 +1,44 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <h:form>
-            <h:commandButton value="ajouter" action="#{test.ajouter}"></h:commandButton>
-        </h:form>
-    </h:body>
-</html>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <body>
+        
+        <ui:composition template="./Template.xhtml">
+            
+            <ui:define name="main">
+                <h2>Inscription</h2>
+                <h:form>
 
+                    <p:panel header="Inscription">
+                        <h:panelGrid columns="2" cellpadding="3">
+                            <h:outputText/><h:inputText/><p:message/>
+                            <h:outputText/><h:inputText/><p:message/>
+                            <h:outputText/><h:inputText/><p:message/>
+                 
+                        </h:panelGrid>
+
+
+                    </p:panel>
+
+                </h:form>
+
+
+            </ui:define>
+
+            <ui:define name="side_column">
+                side_column
+            </ui:define>
+
+            <ui:define name="footer">
+                footer
+            </ui:define>
+
+        </ui:composition>
+        
+    </body>
+</html>
