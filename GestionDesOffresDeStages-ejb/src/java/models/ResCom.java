@@ -22,7 +22,20 @@ import javax.persistence.Table;
 @DiscriminatorValue("ResCom")
 public class ResCom extends Utilisateur {
 
+    public ResCom() {
+        super();
+    }
+
+    public ResCom(String nom, String prenom, String email,String civilite) {
+           super(nom, prenom, email,civilite);
+
+    }
+
  
+
+
+
+
 
   @OneToMany(mappedBy="respoCom_Fk")
    List<Commune> communes;

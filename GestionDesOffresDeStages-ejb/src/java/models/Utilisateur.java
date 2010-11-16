@@ -141,4 +141,19 @@ public class Utilisateur implements Serializable {
         return "models.Utilisateur[id=" + id + "]";
     }
 
+    public Utilisateur() {
+    }
+
+    public Utilisateur(String nom, String prenom, String email,String civilite) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.active = false;
+        this.etat_Civil= civilite;
+    }
+
+
+
+    
+
 }

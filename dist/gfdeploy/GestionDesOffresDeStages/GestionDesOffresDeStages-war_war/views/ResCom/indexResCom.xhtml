@@ -1,0 +1,369 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    
+    <body>
+        
+        <ui:composition template="./../../Template.xhtml">
+            
+            <ui:define name="navig">
+                navig
+            </ui:define>
+
+            <ui:define name="main">
+
+               
+                <h:form prependId="false">
+                <p:panel>
+                <p:dataTable id="TableCategorie"
+                                      
+                             rows="5"    paginator="true"
+                                                                              >
+
+                      <f:facet name="header">
+                          liste des etudaints de la comuanuté
+                      </f:facet>
+
+                     <p:column>
+                      <f:facet name="header">
+                          <h:outputText value="Id" />
+                      </f:facet>
+                          <h:outputText value="#" />
+                      </p:column>
+
+                    <p:column >
+
+                      <f:facet name="header">
+                          <h:outputText value="Nom"/>
+                      </f:facet>
+
+                       <h:outputText value="" />
+
+                     </p:column>
+
+                     <p:column >
+
+                      <f:facet name="header">
+                          <h:outputText value="Prenom"/>
+                      </f:facet>
+
+                       <h:outputText value="" />
+
+                     </p:column>
+
+                     <p:column >
+
+                      <f:facet name="header">
+                          <h:outputText value="Communauté"/>
+                      </f:facet>
+
+                       <h:outputText value="" />
+
+                     </p:column>
+
+
+                    <p:column headerText="Option" >
+
+                        <!--
+                        <p:commandButton value="Détail"
+                                oncomplete="dialogDetail.show()"
+                                                  update="InfoCategorie" >
+
+                           <f:setPropertyActionListener value="#{c}" target="#{categorieController.categprieTemp}"  />
+
+                        </p:commandButton>
+
+
+                         <p:commandButton value="Modifier"
+                                oncomplete="dialogModifier.show()"
+                                             update="ModifierCategorie" >
+
+                            <f:setPropertyActionListener value="#{c}" target="#{categorieController.categprieTemp}"  />
+
+                        </p:commandButton>
+
+
+                       <p:commandButton value="Sup"  update="panel1" action="#{categorieController.supprimer}" >
+
+
+
+                            <f:setPropertyActionListener value="#{c}" target="#{categorieController.categprieTemp}"  />
+
+                        </p:commandButton>
+
+                                -->
+
+                    </p:column>
+
+
+                </p:dataTable>
+                </p:panel>
+
+              </h:form>
+                <br/>
+                <br/>
+
+                 <h:form prependId="false">
+                <p:panel>
+                <p:dataTable id="TableCategorie2"
+
+                             rows="5"    paginator="true"
+                                                                              >
+
+                      <f:facet name="header">
+                          liste des etudaints à valdier
+                      </f:facet>
+
+                     <p:column>
+                      <f:facet name="header">
+                          <h:outputText value="Id" />
+                      </f:facet>
+                          <h:outputText value="#" />
+                      </p:column>
+
+                    <p:column >
+
+                      <f:facet name="header">
+                          <h:outputText value="Nom"/>
+                      </f:facet>
+
+                       <h:outputText value="" />
+
+                     </p:column>
+
+                     <p:column >
+
+                      <f:facet name="header">
+                          <h:outputText value="Prenom"/>
+                      </f:facet>
+
+                       <h:outputText value="" />
+
+                     </p:column>
+
+                     <p:column >
+
+                      <f:facet name="header">
+                          <h:outputText value="Communauté"/>
+                      </f:facet>
+
+                       <h:outputText value="" />
+
+                     </p:column>
+
+
+                    <p:column headerText="Option" >
+
+                        <!--
+                        <p:commandButton value="Détail"
+                                oncomplete="dialogDetail.show()"
+                                                  update="InfoCategorie" >
+
+                           <f:setPropertyActionListener value="#{c}" target="#{categorieController.categprieTemp}"  />
+
+                        </p:commandButton>
+
+
+                         <p:commandButton value="Modifier"
+                                oncomplete="dialogModifier.show()"
+                                             update="ModifierCategorie" >
+
+                            <f:setPropertyActionListener value="#{c}" target="#{categorieController.categprieTemp}"  />
+
+                        </p:commandButton>
+
+
+                       <p:commandButton value="Sup"  update="panel1" action="#{categorieController.supprimer}" >
+
+
+
+                            <f:setPropertyActionListener value="#{c}" target="#{categorieController.categprieTemp}"  />
+
+                        </p:commandButton>
+
+                                -->
+
+                    </p:column>
+
+
+                </p:dataTable>
+                </p:panel>
+
+              </h:form>
+                <br/>
+                <br/>
+                 <h:form>
+
+                    <p:panel header="Ajouter une offre">
+                        <h:panelGrid columns="3" cellpadding="3">
+
+                            <h:outputLabel value="Nom*:"
+                                           for="nom"  /><h:inputText  id="nom" /><p:message for="nom"/>
+                            <h:outputLabel value="Prenom*:"
+                                           for="prenom" /><h:inputText id="prenom" /><p:message for="prenom"/>
+                            <h:outputLabel value="Email*:"
+                                           for="email" /><h:inputText id="email"/><p:message for="email"/>
+                             <h:outputLabel value="Civilité*:"
+                                            for="Civilite" />
+                             <h:selectOneMenu >
+
+                                     <f:selectItem itemValue="Madame" itemLabel="Madame"/>
+                                     <f:selectItem itemValue="Monsieur"  itemLabel="Monsieur" />
+                                     <f:selectItem itemValue="Mademoiselle" itemLabel="Mademoiselle" />
+
+                               </h:selectOneMenu>
+
+                        </h:panelGrid>
+                        <p:commandButton value="Valider"/>
+
+
+                    </p:panel>
+                 </h:form>
+             <br/>
+             <br/>
+                 <h:form prependId="false">
+                <p:panel>
+                <p:dataTable id="TableCategorie3"
+
+                             rows="5"    paginator="true"
+                                                                              >
+
+                      <f:facet name="header">
+                          liste des offres à valdier
+                      </f:facet>
+
+                     <p:column>
+                      <f:facet name="header">
+                          <h:outputText value="Id" />
+                      </f:facet>
+                          <h:outputText value="#" />
+                      </p:column>
+
+                    <p:column >
+
+                      <f:facet name="header">
+                          <h:outputText value="Nom"/>
+                      </f:facet>
+
+                       <h:outputText value="" />
+
+                     </p:column>
+
+                     <p:column >
+
+                      <f:facet name="header">
+                          <h:outputText value="Prenom"/>
+                      </f:facet>
+
+                       <h:outputText value="" />
+
+                     </p:column>
+
+                     <p:column >
+
+                      <f:facet name="header">
+                          <h:outputText value="Communauté"/>
+                      </f:facet>
+
+                       <h:outputText value="" />
+
+                     </p:column>
+
+
+                    <p:column headerText="Option" >
+
+                        <!--
+                        <p:commandButton value="Détail"
+                                oncomplete="dialogDetail.show()"
+                                                  update="InfoCategorie" >
+
+                           <f:setPropertyActionListener value="#{c}" target="#{categorieController.categprieTemp}"  />
+
+                        </p:commandButton>
+
+
+                         <p:commandButton value="Modifier"
+                                oncomplete="dialogModifier.show()"
+                                             update="ModifierCategorie" >
+
+                            <f:setPropertyActionListener value="#{c}" target="#{categorieController.categprieTemp}"  />
+
+                        </p:commandButton>
+
+
+                       <p:commandButton value="Sup"  update="panel1" action="#{categorieController.supprimer}" >
+
+
+
+                            <f:setPropertyActionListener value="#{c}" target="#{categorieController.categprieTemp}"  />
+
+                        </p:commandButton>
+
+                                -->
+
+                    </p:column>
+
+
+                </p:dataTable>
+                </p:panel>
+
+              </h:form>
+	
+            </ui:define>
+
+            <ui:define name="side_column">
+                <h1>Operation</h1>
+                <h2>Validation d'un etudiant</h2>
+                <h2>Creation d'une offre</h2>
+                <h2>Proposerun etudaint</h2>
+                <h2>Validation du choix etudiant</h2>
+                <h2>Validation d'une offre</h2>
+                <h2>Mon Profie</h2>
+                <h:form id="form">
+                    <p:messages id="messages"/>
+
+	
+	<p:commandButton id="dynaButton" value="Show"
+            onclick="dynaMenu.show();return false;" type="button"/>
+        
+	<p:menu widgetVar="dynaMenu" position="dynamic" context="'form:dynaButton','tl','br'">
+		<p:submenu label="Ajax Menuitems">
+			<p:menuitem value="Save" update="messages" icon="/images/save.png"
+				 />
+			<p:menuitem value="Update" update="messages" icon="/images/update.png"
+		                                   />
+		</p:submenu>
+		<p:submenu label="Non-Ajax Menuitem">
+			<p:menuitem value="Delete" update="messages" ajax="false"
+					icon="/images/delete.png"
+					/>
+		</p:submenu>
+		<p:submenu label="Navigations">
+			<p:menuitem value="Home" url="http://www.primefaces.org"
+					icon="/images/home.png"/>
+			<p:menuitem value="TouchFaces" 
+					icon="/images/mobile.png"/>
+		</p:submenu>
+	</p:menu>
+
+                </h:form>
+                <br/>
+                <br/>
+
+
+
+
+            </ui:define>
+
+            <ui:define name="footer">
+                footer
+            </ui:define>
+
+        </ui:composition>
+        
+    </body>
+</html>

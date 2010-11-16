@@ -11,27 +11,32 @@
         <ui:composition template="./Template.xhtml">
             
             <ui:define name="main">
-                <h2>Inscription</h2>
-                <h:form>
+                <div class="post_box">
 
-                    <p:panel header="Inscription">
-                        <h:panelGrid columns="2" cellpadding="3">
-                            <h:outputText/><h:inputText/><p:message/>
-                            <h:outputText/><h:inputText/><p:message/>
-                            <h:outputText/><h:inputText/><p:message/>
-                 
-                        </h:panelGrid>
+                    <h1>Option</h1>
+                    <br/>
 
+                    <h:form prependId="false">
 
-                    </p:panel>
+                        <p:commandButton value="Connexion"  onclick="dialog1.show()"/>
+                        <p:commandButton value="Connexion2" action="#{Us.login}" />
+                        <h:commandButton value="test" action="test" />
+                    </h:form>
 
-                </h:form>
+                    <!-- panel de connexion  -->
+                    <h:form prependId="false">
+                        <p:dialog id="dailogConnexion" widgetVar="dialog1"  height="100" width="200">
+                        <h:commandButton value="test" action="test" />
+                        <p:commandButton value="Connexion2" action="#{Us.login}" />
+                        </p:dialog>
+                    </h:form>
 
-
+             
+                </div>
             </ui:define>
 
             <ui:define name="side_column">
-                side_column
+   
             </ui:define>
 
             <ui:define name="footer">
