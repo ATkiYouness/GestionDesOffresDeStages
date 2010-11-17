@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.prime.com.tr/ui"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html">
+
     
     <body>
         
@@ -13,25 +13,64 @@
             <ui:define name="main">
                 <div class="post_box">
 
-                    <h1>Option</h1>
+                   
+                    <h1>Option</h1><br/>
+                 
+            <p:graphicImage  value="resources/images/general/ajaxloadingbar.gif"/><br/>
                     <br/>
-
                     <h:form prependId="false">
-
+                
+                        <p:growl showDetail="true" id="mmm"  /><br/>
                         <p:commandButton value="Connexion"  onclick="dialog1.show()"/>
-                        <p:commandButton value="Connexion2" action="#{Us.login}" />
-                        <h:commandButton value="test" action="test" />
+                        <p:commandButton value="S'inscrire" action="#{Us.beforLogin}" update="mmm" />
+                        <h:commandButton value="tesgg" action="#{Us.beforLogin}" />
+                       
+                        <h:outputText value="#{Us.test}"/>
+                     
                     </h:form>
+
+
+
 
                     <!-- panel de connexion  -->
                     <h:form prependId="false">
-                        <p:dialog id="dailogConnexion" widgetVar="dialog1"  height="100" width="200">
-                        <h:commandButton value="test" action="test" />
-                        <p:commandButton value="Connexion2" action="#{Us.login}" />
+                        <p:dialog id="dailogConnexion" widgetVar="dialog1"  height="150" width="300"
+                                  header="Connexion"    >
+                            <p:growl showDetail="true" id="gggg"/>
+                            <h:panelGrid columns="2" cellpadding="4">
+                                <h:outputLabel value="Email:" /><h:inputText value="#{Us.email}"  />
+                                <h:outputLabel value="pass"  /><h:inputSecret value="#{Us.passe}"  />
+                            </h:panelGrid>
+                      
+                        <p:commandButton value="Connexion2" action="#{Us.login}"
+                    oncomplete="handleLoginRequest(xhr, status, args)"  update="gggg"         />
+                        <h:commandButton value="Coo" action="index" />
                         </p:dialog>
                     </h:form>
 
-             
+
+  <!--    ajax statut  et script    -->
+
+   <p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>
+
+    <p:dialog modal="true" widgetVar="statusDialog" header="Status"
+         draggable="false" closable="false">
+       <p:graphicImage  value="resources/images/general/ajaxloadingbar.gif"/>
+    </p:dialog>
+
+       <script type="text/javascript">
+	function handleLoginRequest(xhr, status, args) {
+		if(args.validationFailed || !args.loggedIn) {
+			jQuery('#dailogConnexion').effect("shake", { times:3 }, 100);
+		} else {
+			dialog1.hide();
+			jQuery('#loginLink').fadeOut();
+		}
+	}
+</script>
+
+
+
                 </div>
             </ui:define>
 

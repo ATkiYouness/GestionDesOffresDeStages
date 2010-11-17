@@ -12,10 +12,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.jboss.weld.context.RequestContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -25,17 +24,17 @@ import org.jboss.weld.context.RequestContext;
 @SessionScoped
 public class UserManager {
 
-    @NotEmpty(message="Entrer une valeur")
+   // @NotEmpty(message="Entrer une valeur")
     private String first_name;
-    @NotEmpty(message="Entrer une valeur")
+    //@NotEmpty(message="Entrer une valeur")
     private String last_name;
-    @Email( message="Entrez email valide")
-    @NotEmpty(message="Entrer une valeur")
+    //@Email( message="Entrez email valide")
+    //@NotEmpty(message="Entrer une valeur")
     private String email;
     private String civilte;
-    @NotEmpty(message="Entrer une valeur")
+   // @NotEmpty(message="Entrer une valeur")
     private String passe;
-    @NotEmpty(message="Entrer une valeur")
+   // @NotEmpty(message="Entrer une valeur")
     private String rpasse;
     @EJB
     private  ResComManagement rcm;
@@ -102,7 +101,13 @@ public class UserManager {
 
    
  
+         public void beforLogin(){
 
+                    MessagesManager ms=new MessagesManager("msg");
+                    FacesContext.getCurrentInstance().
+                        addMessage(null,new FacesMessage(" ", ms.getValue("ResComRegister")));
+                  
+             }
 
 
 
@@ -122,7 +127,7 @@ public class UserManager {
         } catch (Exception e) {
            String str = ms.getValue("ErreurRegester");
            FacesContext.
-         getCurrentInstance().addMessage(null,new FacesMessage(null,str));
+         getCurrentInstance().addMessage(null,new FacesMessage(" ",str));
         }
        
        
@@ -133,12 +138,27 @@ public class UserManager {
 
     public String login(){
 
-            MessagesManager ms= new MessagesManager("msg");
-            String str = ms.getValue("ErrerurConnexionLogin");
-            FacesContext.
-            getCurrentInstance().addMessage(null,new FacesMessage(null,str));
+             MessagesManager ms= new MessagesManager("msg");
+               FacesContext context= FacesContext.getCurrentInstance();
+               RequestContext requestcontext = RequestContext.getCurrentInstance();
+               boolean loggedIn=false;
             
-             return "views/ResCom/HomeResCom?faces-redirect=true";
+
+            	if(email != null  && email.equals("admin") && passe != null  && passe.equals("admin")) {
+	   		  loggedIn = true;
+		          context.addMessage(civilte, new FacesMessage(" ", ms.getValue("LoggedIn")));
+                          requestcontext.addCallbackParam("loggedIn",loggedIn);
+                          return "views/ResCom/HomeResCom?faces-redirect=true";
+		} else {
+			 loggedIn = false;
+                         context.addMessage(civilte, new FacesMessage(" ", ms.getValue("ErreurRegester")));
+                         requestcontext.addCallbackParam("loggedIn",loggedIn);
+                         return null;
+		}
+
+          
+            
+            
     }
 
 
@@ -171,18 +191,11 @@ public class UserManager {
    
 
 
-   public String montest(){
+   public void  montest(){
 
 
 
-  MessagesManager ms= new MessagesManager("msg");
-  String str = ms.getValue("ErrerurConnexionLogin");
-  test=str;
-          FacesContext.
-          getCurrentInstance().addMessage(null,new FacesMessage("info",str));
-
-
-          return "test?faces-redirect=true";
+ 
    }
 
 

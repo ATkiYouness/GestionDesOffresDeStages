@@ -2,10 +2,11 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
+        <Node id="test.xhtml" x="400" y="300" zoom="true"/>
         <Node id="index.xhtml" x="650" y="150" zoom="true"/>
-        <Node id="views/ResCom/indexResCom.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="views/Admin/indexAdmin.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="views/Admin/indexAdmin.xhtml" x="72" y="97" zoom="true"/>
         <Node id="Template.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="views/ResCom/HomeResCom.xhtml" x="152" y="211" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>
