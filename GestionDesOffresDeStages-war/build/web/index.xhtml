@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.prime.com.tr/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 
     
     <body>
@@ -11,7 +12,7 @@
         <ui:composition template="./Template.xhtml">
             
             <ui:define name="main">
-                <div class="post_box">
+
 
                    
                     <h1>Option</h1><br/>
@@ -21,8 +22,8 @@
                     <h:form prependId="false">
                 
                         <p:growl showDetail="true" id="mmm"  /><br/>
-                        <p:commandButton value="Connexion"  onclick="dialog1.show()"/>
-                        <p:commandButton value="S'inscrire" action="#{Us.beforLogin}" update="mmm" />
+                        <p:commandButton  value="Connexion"  onclick="dialog1.show()"/>
+                        <p:commandButton value="S'inscrire"  onclick="dialogInscription.show()" />
                         <h:commandButton value="tesgg" action="#{Us.beforLogin}" />
                        
                         <h:outputText value="#{Us.test}"/>
@@ -34,19 +35,79 @@
 
                     <!-- panel de connexion  -->
                     <h:form prependId="false">
-                        <p:dialog id="dailogConnexion" widgetVar="dialog1"  height="150" width="300"
+                        <p:dialog id="dailogConnexion" widgetVar="dialog1"  height="180" width="300"
                                   header="Connexion"    >
-                            <p:growl showDetail="true" id="gggg"/>
+                            <p:growl showDetail="true" id="infoLogin"/>
+                            <p:panel >
                             <h:panelGrid columns="2" cellpadding="4">
-                                <h:outputLabel value="Email:" /><h:inputText value="#{Us.email}"  />
-                                <h:outputLabel value="pass"  /><h:inputSecret value="#{Us.passe}"  />
+                                <h:outputLabel value="Email:" for="emaillog" /><h:inputText value="#{Us.email}" id="emaillog"  />
+                                <h:outputLabel value="pass"  for="passlog" /><h:inputSecret value="#{Us.passe}"  id="passlog" />
                             </h:panelGrid>
                       
                         <p:commandButton value="Connexion2" action="#{Us.login}"
-                    oncomplete="handleLoginRequest(xhr, status, args)"  update="gggg"         />
+                    oncomplete="handleLoginRequest(xhr, status, args)"  update="infoLogin"         />
                         <h:commandButton value="Coo" action="index" />
+                        </p:panel>
                         </p:dialog>
                     </h:form>
+
+              <!--   panel Inscription -->
+
+              <h:form prependId="false">
+               <p:dialog   widgetVar="dialogInscription"
+                        header="Inscription" resizable="false" id="dailogInscription"
+                                 height="380" width="600">
+                    <p:panel >
+
+                        <p:messages id="infoInscription"  showDetail="true"  />
+                        <h:panelGrid columns="3" cellpadding="3">
+
+                            <h:outputLabel value="Nom*:"
+                                           for="nom"  /><h:inputText  id="nom"  value="#{Us.first_name}"/><p:message for="nom"/>
+                            <h:outputLabel value="Prenom*:"
+                                           for="prenom" /><h:inputText id="prenom" value="#{Us.last_name}" /><p:message for="prenom"/>
+                            <h:outputLabel value="Email*:"
+                                           for="email" /><h:inputText id="email" value="#{Us.email}"/><p:message for="email"/>
+                           <h:outputLabel value="Mot de passe*:"
+                                          for="pass"  /><p:password value="#{Us.passe}" id="pass" minLength="4" promptLabel="Entrez  un mot de passe"
+                                          inline="true"          weakLabel="Niveau de sécurité du mot de passe : Faible" goodLabel="Niveau de sécurité du mot de passe : Bien"
+                                          strongLabel="Niveau de sécurité du mot de passe : Élevé"/>
+                                           <p:message for="pass"/>
+
+                           <h:outputLabel value="Répéter mot de passe*:"
+                                          for="rpass"  /><h:inputSecret value="#{Us.rpasse}"  id="rpass"/>
+                                           <p:message for="rpass"/>
+
+
+
+                            <h:outputLabel value="Civilité*:"
+                                            for="Civilite" />
+
+                              <h:selectOneMenu  value="#{Us.civilte}"  >
+                                     <f:selectItem itemValue="Monsieur"  itemLabel="Monsieur" />
+                                     <f:selectItem itemValue="Madame" itemLabel="Madame"/>
+
+                                     <f:selectItem itemValue="Mademoiselle" itemLabel="Mademoiselle" />
+
+                               </h:selectOneMenu>
+
+
+
+                        </h:panelGrid>
+                        <p:commandButton value="Valider"  action="#{Us.regerster}" update="infoInscription"  />
+                        <h:commandButton  value="Valiser" action="#{Us.montest}" /><br/>
+
+                          <br/>
+                          <h:commandLink value="J'ai oublié mon mot de passe !"   />
+
+                    </p:panel>
+                      </p:dialog>
+                    
+                </h:form>
+
+
+
+
 
 
   <!--    ajax statut  et script    -->
@@ -71,7 +132,7 @@
 
 
 
-                </div>
+               
             </ui:define>
 
             <ui:define name="side_column">
