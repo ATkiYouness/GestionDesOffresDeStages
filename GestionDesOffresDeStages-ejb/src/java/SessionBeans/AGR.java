@@ -52,7 +52,7 @@ public  abstract  class   AGR<A,T> implements GenericRemote<A, T> {
      public T  findByEmail(String email){
 
 
-         return (T) em.createNamedQuery("findByEmail").setParameter("email", email).getSingleResult();
+         return (T) em.createNamedQuery("Utilisateur.findByEmail").setParameter("email", email).getSingleResult();
      }
 
     @Override

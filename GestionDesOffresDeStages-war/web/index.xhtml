@@ -38,7 +38,7 @@
                     <h:form prependId="false">
                         <p:dialog id="dailogConnexion" widgetVar="dialog1"  height="180" width="300"
                                   header="Connexion"    >
-                            <p:growl showDetail="true" id="infoLogin"/>
+                            <p:growl showDetail="true" id="MessageLogin"/>
                             <p:panel >
                             <h:panelGrid columns="2" cellpadding="4">
                                 <h:outputLabel value="Email:" for="emaillog" /><h:inputText value="#{Us.email}" id="emaillog"  />
@@ -46,7 +46,7 @@
                             </h:panelGrid>
                       
                         <p:commandButton value="Connexion2" action="#{Us.login}"
-                    oncomplete="handleLoginRequest(xhr, status, args)"  update="infoLogin"         />
+                    oncomplete="handleLoginRequest(xhr, status, args)"  update="MessageLogin"         />
                         <h:commandButton value="Coo" action="#{Us.montest}" />
                         </p:panel>
                         </p:dialog>

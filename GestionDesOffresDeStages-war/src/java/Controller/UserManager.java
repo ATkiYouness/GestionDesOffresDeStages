@@ -1,6 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ *
+ *
+ *
+ *
+ *
+ *
  */
 
 package Controller;
@@ -168,35 +172,52 @@ public class UserManager {
 
     }
     //
-           //pour se connecter
+           /*
+            * pour se connecter  :
+            * vérifier si le mail existe dan la base
+            * puis vérifier si le mot de passe et correcte
+            * puis vérfier si le compte est active
+            *
+            *
+            */
     public String login(){
-
                MessagesManager ms= new MessagesManager("msg");
                FacesContext context= FacesContext.getCurrentInstance();
                RequestContext requestcontext = RequestContext.getCurrentInstance();
                boolean loggedIn=false;
 
-               utilisateur=rcm.findByEmail(email);
+               utilisateur =null;
+        try{
+            utilisateur=rcm.findByEmail(email);
 
-
-            	if(utilisateur.getEmail().equalsIgnoreCase(email) && utilisateur.getPasse().equals(passe)) {
+            if(utilisateur.getPasse().equals(passe)) {
+                        if(utilisateur.isActive()){
 	   		  loggedIn = true;
-		          context.addMessage(civilte, new FacesMessage(" ", ms.getValue("LoggedIn")));
+		          context.addMessage(civilte, new FacesMessage(FacesMessage.SEVERITY_INFO," ", ms.getValue("LoggedIn")));
                           requestcontext.addCallbackParam("loggedIn",loggedIn);
                           return "views/ResCom/HomeResCom?faces-redirect=true";
-		} else {
-			 loggedIn = false;
-                         context.addMessage(civilte, new FacesMessage(FacesMessage.SEVERITY_ERROR," ", ms.getValue("ErreurRegester")));
+                          }
+                         loggedIn = false;
+                         context.addMessage(civilte, new FacesMessage(FacesMessage.SEVERITY_ERROR," ", ms.getValue("ErreurActive")));
                          requestcontext.addCallbackParam("loggedIn",loggedIn);
                          return null;
-		}
+		   }
+            else   {
+			 loggedIn = false;
+                         context.addMessage(civilte, new FacesMessage(FacesMessage.SEVERITY_ERROR," ", ms.getValue("ErreurPasse")));
+                         requestcontext.addCallbackParam("loggedIn",loggedIn);
+                         return null;
+	         	}
 
-          
+            }catch (Exception e) {
             
+                loggedIn = false;
+                context.addMessage(civilte, new FacesMessage(FacesMessage.SEVERITY_ERROR," ", ms.getValue("ErreurLogin")));
+                 requestcontext.addCallbackParam("loggedIn",loggedIn);
+                return null;
             
-    }
-
-
+                }
+        }
 
 
 
@@ -212,7 +233,12 @@ public class UserManager {
      */
 
 
+    ///pas encore developper il test le role et envoie la page
+  private String UserRolePage(String role){
 
+
+      return null;
+  }
 
    private String test;
 

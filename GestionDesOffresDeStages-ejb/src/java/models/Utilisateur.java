@@ -34,7 +34,7 @@ import javax.persistence.Temporal;
 @Table(name="Utilisateur")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="Role", discriminatorType=DiscriminatorType.STRING)
-@NamedQueries({@NamedQuery(name="findByEmail", query="SElECT res FROM Utilisateur res WHERE res.email=:email")})
+@NamedQueries({@NamedQuery(name="Utilisateur.findByEmail", query="SElECT res FROM Utilisateur res WHERE res.email=:email")})
 
 public class Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
