@@ -12,6 +12,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import models.ResCom;
+import models.Utilisateur;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.primefaces.context.RequestContext;
@@ -24,18 +26,24 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class UserManager {
 
-   // @NotEmpty(message="Entrer une valeur")
+   @NotEmpty(message="Entrer une valeur")
     private String first_name;
-    //@NotEmpty(message="Entrer une valeur")
+    @NotEmpty(message="Entrer une valeur")
     private String last_name;
-    //@Email( message="Entrez email valide")
-    //@NotEmpty(message="Entrer une valeur")
+   @Email( message="Entrez email valide")
+   @NotEmpty(message="Entrer une valeur")
     private String email;
     private String civilte;
-   // @NotEmpty(message="Entrer une valeur")
+    @NotEmpty(message="Entrer une valeur")
     private String passe;
-   // @NotEmpty(message="Entrer une valeur")
+    @NotEmpty(message="Entrer une valeur")
     private String rpasse;
+
+
+    ///ustilisateur ***
+    Utilisateur utilisateur;
+
+
     @EJB
     private  ResComManagement rcm;
     private   String messageInfo;
@@ -99,6 +107,17 @@ public class UserManager {
         this.messageInfo = messageInfo;
     }
 
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur Utilisateur) {
+        this.utilisateur = Utilisateur;
+    }
+
+
+    
+
    
  
          public void beforLogin(){
@@ -110,24 +129,38 @@ public class UserManager {
              }
 
 
-
+      //fonction d'inscription
     public void regerster(){
          MessagesManager ms= new MessagesManager("msg");
+         boolean created = false;
+         RequestContext requestContext=RequestContext.getCurrentInstance();
         try {
 
+          if(!passe.equals(rpasse)){
+         
+          String str = ms.getValue("ErreurPassInscription");
+          FacesContext.
+          getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR,"",str));
+                requestContext.addCallbackParam("created", created);
+          }
+          else{
 
-         // ResCom rsCom= new ResCom(first_name,last_name, email,civilte);
-       //           rcm.create(rsCom);
+              ResCom rsCom= new ResCom(first_name,last_name, email,civilte,passe);
+              rcm.create(rsCom);
 
-    
           String str = ms.getValue("ResComRegister");
           FacesContext.
           getCurrentInstance().addMessage(null,new FacesMessage("",str));
 
+             created =true;
+            requestContext.addCallbackParam("created", created);
+                     }
         } catch (Exception e) {
            String str = ms.getValue("ErreurRegester");
            FacesContext.
-         getCurrentInstance().addMessage(null,new FacesMessage(" ",str));
+         getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR," ",str));
+           created =false;
+            requestContext.addCallbackParam("created", created);    
         }
        
        
@@ -135,23 +168,25 @@ public class UserManager {
 
     }
     //
-
+           //pour se connecter
     public String login(){
 
-             MessagesManager ms= new MessagesManager("msg");
+               MessagesManager ms= new MessagesManager("msg");
                FacesContext context= FacesContext.getCurrentInstance();
                RequestContext requestcontext = RequestContext.getCurrentInstance();
                boolean loggedIn=false;
-            
 
-            	if(email != null  && email.equals("admin") && passe != null  && passe.equals("admin")) {
+               utilisateur=rcm.findByEmail(email);
+
+
+            	if(utilisateur.getEmail().equalsIgnoreCase(email) && utilisateur.getPasse().equals(passe)) {
 	   		  loggedIn = true;
 		          context.addMessage(civilte, new FacesMessage(" ", ms.getValue("LoggedIn")));
                           requestcontext.addCallbackParam("loggedIn",loggedIn);
                           return "views/ResCom/HomeResCom?faces-redirect=true";
 		} else {
 			 loggedIn = false;
-                         context.addMessage(civilte, new FacesMessage(" ", ms.getValue("ErreurRegester")));
+                         context.addMessage(civilte, new FacesMessage(FacesMessage.SEVERITY_ERROR," ", ms.getValue("ErreurRegester")));
                          requestcontext.addCallbackParam("loggedIn",loggedIn);
                          return null;
 		}
@@ -191,11 +226,11 @@ public class UserManager {
    
 
 
-   public void  montest(){
+   public String  montest(){
 
+              utilisateur=rcm.findByEmail("kohan95@gmail.com");
 
-
- 
+              return "views/ResCom/HomeResCom";
    }
 
 

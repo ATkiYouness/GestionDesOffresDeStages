@@ -48,6 +48,13 @@ public  abstract  class   AGR<A,T> implements GenericRemote<A, T> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+     @Override
+     public T  findByEmail(String email){
+
+
+         return (T) em.createNamedQuery("findByEmail").setParameter("email", email).getSingleResult();
+     }
+
     @Override
     public List<T> findAll() {
         throw new UnsupportedOperationException("Not supported yet.");

@@ -24,6 +24,7 @@
                         <p:growl showDetail="true" id="mmm"  /><br/>
                         <p:commandButton  value="Connexion"  onclick="dialog1.show()"/>
                         <p:commandButton value="S'inscrire"  onclick="dialogInscription.show()" />
+                     
                         <h:commandButton value="tesgg" action="#{Us.beforLogin}" />
                        
                         <h:outputText value="#{Us.test}"/>
@@ -46,7 +47,7 @@
                       
                         <p:commandButton value="Connexion2" action="#{Us.login}"
                     oncomplete="handleLoginRequest(xhr, status, args)"  update="infoLogin"         />
-                        <h:commandButton value="Coo" action="index" />
+                        <h:commandButton value="Coo" action="#{Us.montest}" />
                         </p:panel>
                         </p:dialog>
                     </h:form>
@@ -55,7 +56,7 @@
 
               <h:form prependId="false">
                <p:dialog   widgetVar="dialogInscription"
-                        header="Inscription" resizable="false" id="dailogInscription"
+                                 header="Inscription" resizable="false" id="dailogInscription1"
                                  height="380" width="600">
                     <p:panel >
 
@@ -94,7 +95,8 @@
 
 
                         </h:panelGrid>
-                        <p:commandButton value="Valider"  action="#{Us.regerster}" update="infoInscription"  />
+                        <p:commandButton value="Valider"  action="#{Us.regerster}"
+                                          update="infoInscription"  />
                         <h:commandButton  value="Valiser" action="#{Us.montest}" /><br/>
 
                           <br/>
@@ -104,6 +106,40 @@
                       </p:dialog>
                     
                 </h:form>
+
+              
+              <!--  info inscription -->
+              
+              <p:lightBox width="50%" height="50%"  >
+
+<h:outputLink value="#" title="InfoQL" >
+
+
+<h:outputText value="Master QL"/>
+
+</h:outputLink>
+
+
+
+
+
+    <f:facet name="inline" >
+
+
+<h:panelGrid columns="2">
+
+
+
+<h:graphicImage value="resources/images/general/Logo-QL.gif" />
+<h:outputText style="color:#FFFFFF"  value="mlkjhgfd"/>
+
+
+</h:panelGrid>
+
+</f:facet>
+</p:lightBox>
+
+         
 
 
 
@@ -126,6 +162,20 @@
 		} else {
 			dialog1.hide();
 			jQuery('#loginLink').fadeOut();
+		}
+	}
+</script>
+
+          <script type="text/javascript">
+	function handleRegesterRequest(xhr, status, args) {
+		if(args.validationFailed || !args.created) {
+			jQuery('#dailogInscription1').effect("shake", { times:3 }, 100);
+                        jQuery('#dailogInscription1').hide(3000);
+                        
+                       
+		} else {
+			
+			jQuery('#dailogInscription1').hide(3000);
 		}
 	}
 </script>

@@ -26,8 +26,8 @@ public class ResCom extends Utilisateur {
         super();
     }
 
-    public ResCom(String nom, String prenom, String email,String civilite) {
-           super(nom, prenom, email,civilite);
+    public ResCom(String nom, String prenom, String email,String civilite,String passe) {
+           super(nom, prenom, email,civilite,passe);
 
     }
 

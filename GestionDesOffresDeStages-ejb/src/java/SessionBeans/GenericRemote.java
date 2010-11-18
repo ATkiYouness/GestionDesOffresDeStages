@@ -20,6 +20,7 @@ public interface  GenericRemote<A,T> {
     public void     remove(T t);
     public void     update(T t);
     public T        findById(A id);
+    public T        findByEmail(String email);//car le mail est unique
     public List<T>  findAll();
 
 

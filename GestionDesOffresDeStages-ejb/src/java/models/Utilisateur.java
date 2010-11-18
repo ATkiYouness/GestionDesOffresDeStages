@@ -6,6 +6,7 @@
 package models;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -18,8 +19,12 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -29,6 +34,8 @@ import javax.persistence.Table;
 @Table(name="Utilisateur")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="Role", discriminatorType=DiscriminatorType.STRING)
+@NamedQueries({@NamedQuery(name="findByEmail", query="SElECT res FROM Utilisateur res WHERE res.email=:email")})
+
 public class Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,12 +48,22 @@ public class Utilisateur implements Serializable {
     private String prenom;
     @Column(name="email",nullable=false, unique=true)
     private String email;
+
+    @Column(name="passe",nullable=false)
+    private String passe;
     @Column(name="active",nullable=false)
     private boolean active;
     @Column(name="etat_Civil", nullable=false)
     private String etat_Civil;
     @Column(name="tel")
     private String tel;
+    @Column(name="dateInscription", nullable=false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateInscription;
+    @Column(name="dateNaissance",nullable=true)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateNnaissance;
+
 
 
      @OneToOne(cascade=CascadeType.ALL)
@@ -77,6 +94,15 @@ public class Utilisateur implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPasse() {
+        return passe;
+    }
+
+    public void setPasse(String passe) {
+        this.passe = passe;
+    }
+    
 
     public String getNom() {
         return nom;
@@ -110,6 +136,31 @@ public class Utilisateur implements Serializable {
         this.tel = tel;
     }
 
+    public Adresse getAdress() {
+        return adress;
+    }
+
+    public void setAdress(Adresse adress) {
+        this.adress = adress;
+    }
+
+    public Date getDateInscription() {
+        return dateInscription;
+    }
+
+    public void setDateInscription(Date dateInscription) {
+        this.dateInscription = dateInscription;
+    }
+
+    public Date getDateNnaissance() {
+        return dateNnaissance;
+    }
+
+    public void setDateNnaissance(Date dateNnaissance) {
+        this.dateNnaissance = dateNnaissance;
+    }
+
+    
     
     
 
@@ -144,14 +195,25 @@ public class Utilisateur implements Serializable {
     public Utilisateur() {
     }
 
-    public Utilisateur(String nom, String prenom, String email,String civilite) {
+    public Utilisateur(String nom, String prenom, String email,String civilite,String passe) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.active = false;
+      
         this.etat_Civil= civilite;
+        this.passe= passe;
     }
 
+
+    
+    //initialisation de date et active
+       @PrePersist
+    void initActiveAndDateInscription(){
+
+          active=false;
+          dateInscription= new Date();
+
+    }
 
 
     
