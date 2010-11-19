@@ -152,8 +152,8 @@ public class UserManager {
           else{
 
 
-                   //Crypatge avec BasicPasswordEncryptor
-           BasicPasswordEncryptor passwordEncryptor= new BasicPasswordEncryptor();
+                  
+         
 
               ResCom rsCom= new ResCom(first_name,last_name, email,civilte,
                                  SysQl.crypePasse(passe));
@@ -178,14 +178,12 @@ public class UserManager {
 
 
     }
-    //
+  
            /*
-            * pour se connecter  :
+            * pour se connecter  
             * vérifier si le mail existe dan la base
             * puis vérifier si le mot de passe et correcte
             * puis vérfier si le compte est active
-            *
-            *
             */
     public String login(){
                MessagesManager ms= new MessagesManager("msg");

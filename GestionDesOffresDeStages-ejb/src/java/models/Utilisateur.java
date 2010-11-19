@@ -5,6 +5,7 @@
 
 package models;
 
+import Sys.SysQl;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -24,6 +25,7 @@ import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -209,15 +211,23 @@ public class Utilisateur implements Serializable {
 
 
     
-    //initialisation de date et active
+    //initialisation de date et active 
        @PrePersist
     void initActiveAndDateInscription(){
 
           active=false;
           dateInscription= new Date();
 
+        
+
     }
-//Crypatge du mo de pass 
+        //alerter l'utilisateur bien sûr après la création du compte
+       @PostPersist
+       void alertUser(){
+           SysQl.sendAlertMail(email);
+
+       }
+
 
     
 
