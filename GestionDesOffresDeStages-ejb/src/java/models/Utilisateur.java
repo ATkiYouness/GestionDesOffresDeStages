@@ -19,12 +19,15 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+
 
 /**
  *
@@ -35,7 +38,7 @@ import javax.persistence.Temporal;
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="Role", discriminatorType=DiscriminatorType.STRING)
 @NamedQueries({@NamedQuery(name="Utilisateur.findByEmail", query="SElECT res FROM Utilisateur res WHERE res.email=:email")})
-
+//@NamedNativeQueries({@NamedNativeQuery(name="Utilisateur.Role",query="select * from Utilisateur")})
 public class Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -214,7 +217,7 @@ public class Utilisateur implements Serializable {
           dateInscription= new Date();
 
     }
-
+//Crypatge du mo de pass 
 
     
 

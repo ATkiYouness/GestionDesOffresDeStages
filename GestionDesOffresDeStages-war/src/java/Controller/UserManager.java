@@ -10,6 +10,7 @@
 package Controller;
 
 import SessionBeans.ResComManagement;
+import Sys.SysQl;
 import conf.MessagesManager;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -20,6 +21,7 @@ import models.ResCom;
 import models.Utilisateur;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -149,7 +151,12 @@ public class UserManager {
           }
           else{
 
-              ResCom rsCom= new ResCom(first_name,last_name, email,civilte,passe);
+
+                   //Crypatge avec BasicPasswordEncryptor
+           BasicPasswordEncryptor passwordEncryptor= new BasicPasswordEncryptor();
+
+              ResCom rsCom= new ResCom(first_name,last_name, email,civilte,
+                                 SysQl.crypePasse(passe));
               rcm.create(rsCom);
 
           String str = ms.getValue("ResComRegister");
@@ -189,13 +196,14 @@ public class UserManager {
                utilisateur =null;
         try{
             utilisateur=rcm.findByEmail(email);
-
-            if(utilisateur.getPasse().equals(passe)) {
+             
+            if( SysQl.checkpass(passe, utilisateur.getPasse())) {
                         if(utilisateur.isActive()){
 	   		  loggedIn = true;
 		          context.addMessage(civilte, new FacesMessage(FacesMessage.SEVERITY_INFO," ", ms.getValue("LoggedIn")));
                           requestcontext.addCallbackParam("loggedIn",loggedIn);
-                          return "views/ResCom/HomeResCom?faces-redirect=true";
+                           
+                          return  SysQl.pageUser(rcm.getRole(utilisateur.getEmail()));
                           }
                          loggedIn = false;
                          context.addMessage(civilte, new FacesMessage(FacesMessage.SEVERITY_ERROR," ", ms.getValue("ErreurActive")));
@@ -236,11 +244,14 @@ public class UserManager {
     ///pas encore developper il test le role et envoie la page
   private String UserRolePage(String role){
 
+  
+
+
 
       return null;
   }
 
-   private String test;
+   private String test="en atente";
 
     public String getTest() {
         return test;
@@ -259,16 +270,23 @@ public class UserManager {
               return "views/ResCom/HomeResCom";
    }
 
+    private  Long longTest;
+
+    public Long getLongTest() {
+        return longTest;
+    }
+
+    public void setLongTest(Long longTest) {
+        this.longTest = longTest;
+    }
+
+
 
       public void montest2(){
 
 
 
-          MessagesManager ms= new MessagesManager("msg");
-         String str = ms.getValue("ErrerurConnexionLogin");
- 
-          FacesContext.
-          getCurrentInstance().addMessage(null,new FacesMessage("info",str));
+       test= rcm.getRole("kohan95@gmail.com");
 
 
 

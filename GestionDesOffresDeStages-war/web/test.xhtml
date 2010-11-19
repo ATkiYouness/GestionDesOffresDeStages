@@ -8,16 +8,8 @@
     </h:head>
     <h:body>
         <h:form prependId="false">
-            <p:panel id="test3">
-            <h:outputText value="#{Us.test}" id="test"  />
-            <p:growl id="test4" showDetail="true"  life="3000"  />
-            <p:messages id="test2" showDetail="true" />
-                <h:commandButton value="test" action="#{Us.montest}" />
-                <h:commandButton value="PageIndextest" action="index" />
-                <p:commandButton value="test" action="#{Us.montest2}" update="test3" />
-                <p:commandButton value="PageIndextest" action="index" />
-                <h:inputText value="#{Us.email}" />
-                </p:panel>
+            <h:commandButton value="getRole" action="#{Us.montest2}" />
+            <h:outputText value="#{Us.test}"/>
         </h:form>
     </h:body>
 </html>

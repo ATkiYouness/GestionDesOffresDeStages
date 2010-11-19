@@ -8,6 +8,7 @@ package SessionBeans;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -60,6 +61,16 @@ public  abstract  class   AGR<A,T> implements GenericRemote<A, T> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    // en attent de trouver une autre solution
+    public String getRole(String email){
+       //je peux utiliser juste une ligne mais la j'aime bien comme ça ;-)
+       Query query= em.createNativeQuery("select Role from Utilisateur where email = ?");
+        
+        query.setParameter(1,email);
+        String resulta=  (String) query.getSingleResult();
+                           
+        return resulta;
+    }
 
 
 
