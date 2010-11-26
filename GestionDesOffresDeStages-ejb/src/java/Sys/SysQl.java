@@ -42,7 +42,7 @@ public class SysQl {
 
          if (role != null) 
 	    if (role.equals ("ResCom"))
-                  {return "views/ResCom/HomeResCom?faces-redirect=true" ;}
+                  {return "views/Admin/indexAdmin?faces-redirect=true" ;}
 	     if (role.equals ("Admin")) { return null ; }
          else
              return null;

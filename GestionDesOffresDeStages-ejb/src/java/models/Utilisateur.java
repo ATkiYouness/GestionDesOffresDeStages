@@ -20,8 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
+
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -39,8 +38,10 @@ import javax.persistence.Temporal;
 @Table(name="Utilisateur")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="Role", discriminatorType=DiscriminatorType.STRING)
-@NamedQueries({@NamedQuery(name="Utilisateur.findByEmail", query="SElECT res FROM Utilisateur res WHERE res.email=:email")})
-//@NamedNativeQueries({@NamedNativeQuery(name="Utilisateur.Role",query="select * from Utilisateur")})
+@NamedQueries({@NamedQuery(name="Utilisateur.findByEmail", query="SElECT u FROM Utilisateur u WHERE u.email=:email"),
+               @NamedQuery(name="Utilisateur.findNonActive", query="SElECT u FROM Utilisateur u WHERE u.Role=:Role")
+
+})
 public class Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -69,6 +70,10 @@ public class Utilisateur implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateNnaissance;
 
+
+    @Column(name="Role",nullable=false, insertable=false)
+    private String Role ;
+    
 
 
      @OneToOne(cascade=CascadeType.ALL)
@@ -165,6 +170,14 @@ public class Utilisateur implements Serializable {
         this.dateNnaissance = dateNnaissance;
     }
 
+    public String getRole() {
+        return Role;
+    }
+
+    public void setRole(String Role) {
+        this.Role = Role;
+    }
+
     
     
     
@@ -224,7 +237,7 @@ public class Utilisateur implements Serializable {
         //alerter l'utilisateur bien sûr après la création du compte
        @PostPersist
        void alertUser(){
-           SysQl.sendAlertMail(email);
+         //  SysQl.sendAlertMail(email);
 
        }
 

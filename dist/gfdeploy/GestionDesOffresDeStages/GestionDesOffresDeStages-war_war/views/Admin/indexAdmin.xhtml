@@ -19,20 +19,20 @@
                
                 <h:form prependId="false">
                 <p:panel>
-                <p:dataTable id="TableCategorie"
+                    <p:dataTable id="TableRecComNonAcive" value="#{Aa.listRCNs}"
                                       
-                             rows="5"    paginator="true"
+                                 rows="5"    paginator="true"  var="r"
                                                                               >
 
                       <f:facet name="header">
-                          liste RC
+                          liste RC pas encore activé
                       </f:facet>
 
                      <p:column>
                       <f:facet name="header">
                           <h:outputText value="Id" />
                       </f:facet>
-                          <h:outputText value="#" />
+                         <h:outputText value="#{r.id}" />
                       </p:column>
 
                     <p:column >
@@ -41,7 +41,7 @@
                           <h:outputText value="Nom"/>
                       </f:facet>
 
-                       <h:outputText value="" />
+                        <h:outputText value="#{r.nom}" />
 
                      </p:column>
 
@@ -51,20 +51,11 @@
                           <h:outputText value="Prenom"/>
                       </f:facet>
 
-                       <h:outputText value="" />
+                         <h:outputText value="#{r.prenom}" />
 
                      </p:column>
 
-                     <p:column >
-
-                      <f:facet name="header">
-                          <h:outputText value="Communauté"/>
-                      </f:facet>
-
-                       <h:outputText value="" />
-
-                     </p:column>
-
+                   
 
                     <p:column headerText="Option" >
 

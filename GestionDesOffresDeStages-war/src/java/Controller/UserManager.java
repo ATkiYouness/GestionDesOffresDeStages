@@ -10,6 +10,7 @@
 package Controller;
 
 import SessionBeans.ResComManagement;
+import SessionBeans.UtilisateurManagement;
 import Sys.SysQl;
 import conf.MessagesManager;
 import javax.ejb.EJB;
@@ -21,7 +22,7 @@ import models.ResCom;
 import models.Utilisateur;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.jasypt.util.password.BasicPasswordEncryptor;
+
 import org.primefaces.context.RequestContext;
 
 /**
@@ -50,8 +51,9 @@ public class UserManager {
     Utilisateur utilisateur;
 
 
+
     @EJB
-    private  ResComManagement rcm;
+    private UtilisateurManagement um;
     private   String messageInfo;
     /** Creates a new instance of UserManager */
     public UserManager() {
@@ -157,7 +159,7 @@ public class UserManager {
 
               ResCom rsCom= new ResCom(first_name,last_name, email,civilte,
                                  SysQl.crypePasse(passe));
-              rcm.create(rsCom);
+              um.create(rsCom);
 
           String str = ms.getValue("ResComRegister");
           FacesContext.
@@ -193,7 +195,7 @@ public class UserManager {
 
                utilisateur =null;
         try{
-            utilisateur=rcm.findByEmail(email);
+            utilisateur=um.findByEmail(email);
              
             if( SysQl.checkpass(passe, utilisateur.getPasse())) {
                         if(utilisateur.isActive()){
@@ -201,7 +203,7 @@ public class UserManager {
 		          context.addMessage(civilte, new FacesMessage(FacesMessage.SEVERITY_INFO," ", ms.getValue("LoggedIn")));
                           requestcontext.addCallbackParam("loggedIn",loggedIn);
                            
-                          return  SysQl.pageUser(rcm.getRole(utilisateur.getEmail()));
+                          return  SysQl.pageUser(utilisateur.getRole());
                           }
                          loggedIn = false;
                          context.addMessage(civilte, new FacesMessage(FacesMessage.SEVERITY_ERROR," ", ms.getValue("ErreurActive")));
@@ -239,61 +241,6 @@ public class UserManager {
      */
 
 
-    ///pas encore developper il test le role et envoie la page
-  private String UserRolePage(String role){
-
-  
-
-
-
-      return null;
-  }
-
-   private String test="en ::::";
-
-    public String getTest() {
-        return test;
-    }
-
-    public void setTest(String test) {
-        this.test = test;
-    }
-   
-
-
-   public String  montest(){
-
-              utilisateur=rcm.findByEmail("kohan95@gmail.com");
-
-              return "views/ResCom/HomeResCom";
-   }
-
-    private  Long longTest;
-
-    public Long getLongTest() {
-        return longTest;
-    }
-
-    public void setLongTest(Long longTest) {
-        this.longTest = longTest;
-    }
-
-
-
-      public void montest2(){
-
-
-
-       test= rcm.getRole("kohan95@gmail.com");
-
-
-
-   }
-
-   public String pageTest(){
-
-
-       return "test";
-   }
+ 
 
 }

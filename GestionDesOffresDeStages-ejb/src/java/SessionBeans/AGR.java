@@ -57,11 +57,18 @@ public  abstract  class   AGR<A,T> implements GenericRemote<A, T> {
      }
 
     @Override
+     public List<T>  findAllNonActive(String role){
+
+        return  em.createNamedQuery("Utilisateur.findNonActive").setParameter("Role" ,role).getResultList();
+     }
+
+    @Override
     public List<T> findAll() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    // en attent de trouver une autre solution
+   
+        //juste pour tester createNativeQuery
     public String getRole(String email){
        //je peux utiliser juste une ligne mais la j'aime bien comme ça ;-)
        Query query= em.createNativeQuery("select Role from Utilisateur where email = ?");

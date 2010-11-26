@@ -21,6 +21,7 @@ public interface  GenericRemote<A,T> {
     public void     update(T t);
     public T        findById(A id);
     public T        findByEmail(String email);//car le mail est unique
+    public List<T>       findAllNonActive(String role);
     public List<T>  findAll();
 
 
